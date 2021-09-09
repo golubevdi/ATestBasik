@@ -12,5 +12,60 @@
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
-    
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>2.14.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>LATEST</version>
+            </plugin>
+            <plugin>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.9.8.M1</version>
+
+                <configuration>
+                    <includes>
+                        <include>*/**</include>
+                    </includes>
+                    <groups>create</groups>
+                    <tesrFailureIngnore>false</tesrFailureIngnore>
+                    <argLine>
+                        -javaagent:"$settings.;localRepository}/org/aspectj/aspectjweawer/1.9.6/aspectjweawer-1.9.6.jar"
+                    </argLine>
+                    <systemProterties>
+                        <property>
+                            <name>junit.jupiter.extensions.autodetectection.enable</name>
+                            <value>true</value>
+                        </property>
+                    </systemProterties>
+                    <systemPropertyVariables>allure-results</systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
