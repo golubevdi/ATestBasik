@@ -45,7 +45,8 @@ public class Acked {
         //Находим элемент "Текстовый ввод" для задания пользовательского параметра тревоги (Параметр_1)
         WebElement search_input = driver.findElement(By.id("79104"));
         //Передаем в пользовательский параметр (Параметр_1) значение
-        search_input.sendKeys("к-");
+        String k = "к-";
+        search_input.sendKeys(k);
         //Находим элемент "Кнопка с фиксацией", которая активирует тревогу
         WebElement button1 = driver.findElement(By.id("78174"));
         Actions actions = new Actions(driver);

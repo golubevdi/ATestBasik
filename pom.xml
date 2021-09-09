@@ -25,6 +25,12 @@
             <version>3.141.59</version>
         </dependency>
         <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.7.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.7.2</version>
@@ -40,30 +46,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>LATEST</version>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
             <plugin>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>1.9.8.M1</version>
-
-                <configuration>
-                    <includes>
-                        <include>*/**</include>
-                    </includes>
-                    <groups>create</groups>
-                    <tesrFailureIngnore>false</tesrFailureIngnore>
-                    <argLine>
-                        -javaagent:"$settings.;localRepository}/org/aspectj/aspectjweawer/1.9.6/aspectjweawer-1.9.6.jar"
-                    </argLine>
-                    <systemProterties>
-                        <property>
-                            <name>junit.jupiter.extensions.autodetectection.enable</name>
-                            <value>true</value>
-                        </property>
-                    </systemProterties>
-                    <systemPropertyVariables>allure-results</systemPropertyVariables>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
             </plugin>
         </plugins>
     </build>
