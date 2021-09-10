@@ -1,5 +1,4 @@
-package MPSSoft;
-
+import MPSSoft.Smoke;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +16,8 @@ import org.openqa.selenium.interactions.Actions;
  * Bug 21358: При квитировании появляется сообщение с пустым полем пользовательского параметра тревоги
  */
 
-
-public class Acked {
+@Smoke
+public class AckedIT {
     WebDriver driver;
 
     @BeforeEach
