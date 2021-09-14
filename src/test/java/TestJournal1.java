@@ -31,7 +31,7 @@ public class TestJournal1 extends BasePage{
 
     @Step (value = "Активации тревоги")
     @Story("Проверка отображения в журнале пользовательского параметра тревоги")
-    @Attachment(value = "Вложение", type = "application/json", fileExtension = ".txt")
+
     public void ActivateMessage() throws InterruptedException {
         //Поиск кнопки с переходом на окно теста 1
         driver.findElement(test1Button).click();
@@ -62,6 +62,7 @@ public class TestJournal1 extends BasePage{
 
     @Step(value = "Квитирование")
     @Story("Проверка поля пользовательского параметра после квитирования")
+
     public void AckedMessage() throws InterruptedException{
 
         //Поиск кнопки "квит" у последнего появившегося сообщения в архивном журнале
@@ -112,6 +113,7 @@ public class TestJournal1 extends BasePage{
     }
     @Step(value = "Перезагрузка клиента F5")
     @Story("Проверка поля пользовательского параметра после перезагрузки клиента")
+
     public void RefreshPage() throws InterruptedException{
         //Перезагрузка страницы
         driver.navigate().refresh();
