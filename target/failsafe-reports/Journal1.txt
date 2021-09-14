@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Journal1
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 9.582 s <<< FAILURE! - in Journal1
-test1  Time elapsed: 9.391 s  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 13.169 s <<< FAILURE! - in Journal1
+test1  Time elapsed: 13.089 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <-k-k> but was: <-k>
-	at Journal1.test1(Journal1.java:41)
+	at Journal1.test1(Journal1.java:29)
 
