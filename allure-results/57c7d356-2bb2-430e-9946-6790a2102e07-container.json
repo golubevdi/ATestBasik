@@ -1,1 +1,0 @@
-{"uuid":"57c7d356-2bb2-430e-9946-6790a2102e07","name":"При активации и квитировании тревоги в журнале","children":["15ba9c7b-33c8-4a2f-8f8f-d069b6a2ad5c"],"befores":[{"name":"createDriver","status":"passed","stage":"finished","steps":[],"attachments":[],"parameters":[],"start":1631641028214,"stop":1631641029889}],"afters":[],"links":[],"start":1631641028123,"stop":1631641041249}

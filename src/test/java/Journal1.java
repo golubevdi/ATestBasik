@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 @Smoke
-@DisplayName("Проверка отображения пользовательского параметра тревоги в журнале")
+@DisplayName("Тесты архивного журнала")
 @ExtendWith(ScreenshotExt.class)
 public class Journal1 {
 
@@ -20,14 +20,11 @@ public class Journal1 {
     }
 
     @Test
-    @Attachment
-    @DisplayName("При активации и квитировании тревоги в журнале")
+    @DisplayName("Проверка отображения пользовательского параметра тревоги в журнале")
 
     public void test1() throws InterruptedException{
         TestJournal1 testJournal = new TestJournal1(driver.get());
         testJournal.ActivateMessage();
-        testJournal.EqualsTextInputTextMessage();
         testJournal.AckedMessage();
-
     }
 }
