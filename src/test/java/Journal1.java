@@ -26,5 +26,6 @@ public class Journal1 {
         TestJournal1 testJournal = new TestJournal1(driver.get());
         testJournal.ActivateMessage();
         testJournal.AckedMessage();
+        testJournal.RefreshPage();
     }
 }

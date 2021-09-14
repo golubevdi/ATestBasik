@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import java.util.concurrent.TimeUnit;
 
 
@@ -17,6 +16,7 @@ public class TestJournal1 extends BasePage{
     private static final String k = "-k";
     private static final By textInput = By.id("79104");
     private static final By dischargeButton = By.id("84002");
+    private static final By activateButton = By.id("78174");
 
     public TestJournal1(WebDriver driver) {
 
@@ -27,29 +27,29 @@ public class TestJournal1 extends BasePage{
         driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
     }
 
-    Actions actions = new Actions(driver);
     JavascriptExecutor jse = (JavascriptExecutor) driver;
 
     @Step (value = "Активации тревоги")
     @Story("Проверка отображения в журнале пользовательского параметра тревоги")
-    @Attachment
+    @Attachment(value = "Вложение", type = "application/json", fileExtension = ".txt")
     public void ActivateMessage() throws InterruptedException {
         //Поиск кнопки с переходом на окно теста 1
         driver.findElement(test1Button).click();
         //Ожидание (загрузка страницы, элементов)
-        driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+        Thread.sleep(1000);
+
         //Поиск кнопки "Сброс" и клик по ней
         driver.findElement(dischargeButton).click();
+        Thread.sleep(1000);
+
         //Поиск элемента "Текстовый ввод" и задание ему значения "-k"
-        Thread.sleep(2000);
         driver.findElement(textInput).sendKeys(k);
 
-        //Поиск элемента "Кнопка с фиксацией", активирует тревогу
-        WebElement button1 = driver.findElement(By.id("78174"));
-        //Нажатие на кнопку (без отжатия)
-        actions.moveToElement(button1).click(button1).perform();
+        //Поиск кнопки "Активность" и клик по ней (кнопка с фиксацией, положение вкл.)
+        driver.findElement(activateButton).click();
+
         //Ожидание появления сообщения в Архивном журнале
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         //Поиск поля пользовательского параметра в журнале и получения из него значения
         WebElement text1 = (WebElement)
                 jse.executeScript
@@ -89,7 +89,7 @@ public class TestJournal1 extends BasePage{
         //Ожидание нового сообщения в журнале
         Thread.sleep(1000);
 
-        //Поиск у последнего сообщения полей Параметр_1 и Комментарий
+        //Поиск у последнего сообщения поля Параметр_1
         WebElement text1 = (WebElement)
                 jse.executeScript
                         ("return document.querySelector(\"#\\\\37 7958\").shadowRoot.querySelector(\" td:nth-child(8)\")");
@@ -106,18 +106,31 @@ public class TestJournal1 extends BasePage{
         System.out.println("Параметр_1 :" + parameter_1);
         System.out.println("Комментарий :" + comment);
 
+        //Сравнение
         Assertions.assertEquals(parameter_1,k);
-        //Ожидание
-        Thread.sleep(3000);
 
-        //Поиск элемента "Кнопка с фиксацией", активирует тревогу
-        WebElement button1 = driver.findElement(By.id("78174"));
-        //Отжатие кнопки Активности тревоги
-        actions.moveToElement(button1).click(button1).perform();
+    }
+    @Step(value = "Перезагрузка клиента F5")
+    @Story("Проверка поля пользовательского параметра после перезагрузки клиента")
+    public void RefreshPage() throws InterruptedException{
+        //Перезагрузка страницы
+        driver.navigate().refresh();
+        //Ожидание загрузки страницы и элементов
+        Thread.sleep(4000);
 
-        Thread.sleep(2000);
+        //Поиск у последнего сообщения поля Параметр_1
+        WebElement text1 = (WebElement)
+                jse.executeScript
+                        ("return document.querySelector(\"#\\\\37 7958\").shadowRoot.querySelector(\" td:nth-child(8)\")");
+        //Из поля Параметр_1 в параметр String parameter_1
+        String parameter_1 = text1.getText();
+
+        //Сравнение
+        Assertions.assertEquals(parameter_1,k);
+        //Поиск кнопки "Активность" и клик по ней (кнопка с фиксацией, положение выкл.)
+        driver.findElement(activateButton).click();
+
         //Ожидание перед закрытием
-        Thread.sleep(1000);
-
+        Thread.sleep(2000);
     }
 }
