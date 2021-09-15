@@ -1,4 +1,3 @@
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -17,6 +21,7 @@ public class TestJournal1 extends BasePage{
     private static final By textInput = By.id("79104");
     private static final By dischargeButton = By.id("84002");
     private static final By activateButton = By.id("78174");
+    private static final String filePath = "C:/Users/DGolubev/Downloads/journal.csv/";
 
     public TestJournal1(WebDriver driver) {
 
@@ -134,5 +139,52 @@ public class TestJournal1 extends BasePage{
 
         //Ожидание перед закрытием
         Thread.sleep(2000);
+    }
+
+    @Step(value = "Экспорт журнала")
+    @Story("Проверка пользовательского параметра в последней строчке CSV-файла")
+    public void fileCSV() throws InterruptedException{
+        WebElement exportButton = (WebElement)
+                jse.executeScript
+                        ("return document.querySelector(\"#\\\\37 7958\").shadowRoot.querySelector(\"#toolbar\").shadowRoot.querySelector(\"#toolbar > div.hmi-j-export.btn\")");
+        exportButton.click();
+        Thread.sleep(3000);
+        BufferedReader br = null;
+        String out ="";
+
+        try {
+            br = new BufferedReader(new FileReader(filePath));
+            String line;
+            int count = 0;
+            while ((line = br.readLine()) != null){
+                count++;
+                out = line;
+                if (count == 2){
+                    break;
+                }
+            }
+        } catch (IOException e){
+            System.out.println("Error" + e);
+        } finally {
+            try {
+                assert br != null;
+                br.close();
+            }catch (IOException e){
+                System.out.println("Error" + e);
+            }
+        }
+        //System.out.println(out);
+
+        String[] subStr;
+        String delimeter = ";"; // Разделитель
+        subStr = out.split(delimeter); // Разделения строки str с помощью метода split()
+        // Вывод результата на экран
+        System.out.println(subStr[3]);
+        String kCSV = subStr[3];
+        Assertions.assertEquals(kCSV,k);
+
+        //Удаление файла CSV
+        File file = new File(filePath);
+        file.delete();
     }
 }

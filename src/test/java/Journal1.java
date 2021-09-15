@@ -24,9 +24,9 @@ public class Journal1 {
     @Attachment(value = "Вложение", type = "application/json", fileExtension = ".txt")
     public void test1() throws InterruptedException{
         TestJournal1 testJournal = new TestJournal1(driver.get());
-
         testJournal.ActivateMessage();
         testJournal.AckedMessage();
         testJournal.RefreshPage();
+        testJournal.fileCSV();
     }
 }
